@@ -1,0 +1,188 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>RTL: simple</title>
+    <style>
+        html {
+            font-family: 'Roboto', 'serif';
+        }
+
+        body {
+            margin: 0;
+        }
+
+        .container {
+            position: relative;
+        }
+
+        .language {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: baseline;
+            font-size: 13px;
+        }
+
+        .balance {
+            text-align: center;
+            padding: 60px 0 40px;
+        }
+
+        .balance_title {
+            font-size: 20px;
+            line-height: 28px;
+            font-weight: 400;
+            margin: 0 0 4px;
+        }
+
+        .balance_value {
+            font-weight: 500;
+            font-size: 28px;
+            line-height: 32px;
+        }
+
+        .cell {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .cell_before {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: lightgray;
+            flex-shrink: 0;
+            margin-right: 10px;
+        }
+
+        .cell_main {
+            max-width: 100%;
+            flex-grow: 1;
+        }
+
+        .cell_top, .cell_bottom {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .cell_top {
+            margin-bottom: 2px;
+            font-size: 16px;
+            line-height: 18px;
+        }
+
+        .cell_bottom {
+            font-size: 13px;
+            line-height: 15px;
+            color: gray;
+        }
+
+        .cell_status, .cell_value {
+            margin-left: 10px;
+        }
+    </style>
+    <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel" data-presets="react">
+        const translations = {
+            ru: {
+                lang: 'Язык',
+                balance: 'Баланс',
+                topup: 'Пополнение картой',
+                withdraw: 'Вывод',
+                exchange: 'Обмен',
+                pending: 'В ожидании',
+                success: 'Успешно',
+                failed: 'Ошибка'
+            },
+            en: {
+                lang: 'Language',
+                balance: 'Balance',
+                topup: 'Top-up by card',
+                withdraw: 'Withdraw',
+                exchange: 'Exchange',
+                pending: 'Pending',
+                success: 'Success',
+                failed: 'Failed'
+            },
+            ar: {
+                lang: 'لغة',
+                balance: 'الرصيد',
+                topup: 'تعبئة البطاقة عن طريق البطاقة',
+                withdraw: 'ينسحب',
+                exchange: 'تبادل',
+                pending: 'قيد الانتظار',
+                success: 'النجاح',
+                failed: 'باءت بالفشل'
+            }
+        }
+
+        const Cell = ({ title, value, date, status }) => {
+            return (
+                <div className="cell">
+                    <div className="cell_before" />
+                    <div className="cell_main">
+                        <div className="cell_top">
+                            <div className="cell_title">{title}</div>
+                            <div className="cell_value">${value}</div>
+                        </div>
+                        <div className="cell_bottom">
+                            <div className="cell_date">
+                                {date}
+                            </div>
+                            <div className="cell_status">{status}</div>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+
+        const App = () => {
+            const [lang, setLang] = React.useState('ru');
+            const balance = 4000;
+            const t = translations[lang];
+
+            React.useEffect(() => {
+                if (lang === 'ar') {
+                    document.documentElement.setAttribute('dir', 'rtl');
+                } else {
+                    document.documentElement.setAttribute('dir', 'ltr');
+                }
+            }, [lang])
+
+            return (
+                <div className="container">
+                    <div className="language">
+                        <label style={{ marginRight: 4 }}>{t.lang}</label>
+                        <select className="language_select" onChange={(e) => setLang(e.target.value)}>
+                            <option value="ru">Русский</option>
+                            <option value="en">English</option>
+                            <option value="ar">العربية</option>
+                        </select>
+                    </div>
+                    <section className="balance">
+                        <h2 className="balance_title">{t.balance}</h2>
+                        <div className="balance_value">${balance}</div>
+                    </section>
+                    <Cell title={t.topup} date="2022-07-30T12:39:53.346935+00:00" status={t.pending} value={200} />
+                    <Cell title={t.withdraw} date="2022-07-18T19:39:16.146230+00:00" status={t.success} value={300} />
+                    <Cell title={t.exchange} date="2022-07-13T15:30:51.613238+00:00" status={t.failed} value={100} />
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+
+        root.render(<App />);
+    </script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "rtl",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "postcss": "^7.0.39",
+    "postcss-cli": "^7.1.2",
+    "postcss-rtl": "^1.7.3"
+  },
+  "scripts": {
+    "postcss": "postcss styles.css -o styles.dist.css"
+  }
+}

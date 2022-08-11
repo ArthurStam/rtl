@@ -1,0 +1,80 @@
+html {
+    font-family: 'Roboto', 'serif';
+}
+
+body {
+    margin: 0;
+}
+
+.container {
+    position: relative;
+}
+
+.language {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+    font-size: 13px;
+}
+
+.balance {
+    text-align: center;
+    padding: 60px 0 40px;
+}
+
+.balance_title {
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 400;
+    margin: 0 0 4px;
+}
+
+.balance_value {
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 32px;
+}
+
+.cell {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.cell_before {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: lightgray;
+    flex-shrink: 0;
+    margin-right: 10px;
+}
+
+.cell_main {
+    max-width: 100%;
+    flex-grow: 1;
+}
+
+.cell_top, .cell_bottom {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cell_top {
+    margin-bottom: 2px;
+    font-size: 16px;
+    line-height: 18px;
+}
+
+.cell_bottom {
+    font-size: 13px;
+    line-height: 15px;
+    color: gray;
+}
+
+.cell_status, .cell_value {
+    margin-left: 10px;
+}
